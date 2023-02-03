@@ -50,5 +50,3 @@ class NvshenDlSpider(scrapy.Spider):
         item['album_title'] = response.meta['at']
         item['img_url'] = response.xpath('//*[@id="main-wrapper"]/div[2]/p/a/img/@src').extract_first()
         yield item
-
-

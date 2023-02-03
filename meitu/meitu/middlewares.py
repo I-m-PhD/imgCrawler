@@ -4,9 +4,29 @@
 # https://docs.scrapy.org/en/latest/topics/spider-middleware.html
 
 from scrapy import signals
+import requests
 
 # useful for handling different item types with a single interface
 from itemadapter import is_item, ItemAdapter
+
+
+# class ProxyMiddleware(object):
+#     def get_proxy(self):
+#         return requests.get('http://127.0.0.1:5010/get/').json()
+#
+#     def del_proxy(self, proxy):
+#         requests.get('http://127.0.0.1:5010/delete/?proxy={}'.format(proxy))
+#
+#     def process_request(self, request, spider):
+#         retry_count = 5
+#         proxy = self.get_proxy().get('proxy')
+#         while retry_count > 0:
+#             try:
+#                 return requests.get(url=request.url, proxies={'http': 'http://{}'.format(proxy)})
+#             except Exception:
+#                 retry_count -= 1
+#         self.del_proxy(proxy)
+#         return None
 
 
 class MeituSpiderMiddleware:
