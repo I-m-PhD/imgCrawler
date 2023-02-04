@@ -1,2 +1,5 @@
 /false/
 *.csv
+/.idea/
+/.venv/
+user_id_list.csv

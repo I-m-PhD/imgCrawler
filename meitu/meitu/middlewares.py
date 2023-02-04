@@ -1,32 +1,32 @@
-# Define here the models for your spider middleware
-#
-# See documentation in:
 # https://docs.scrapy.org/en/latest/topics/spider-middleware.html
 
 from scrapy import signals
+
+# proxy_pool
+from meitu.settings import count, ipPool, RETRY_TIMES
+import random
 import requests
+# import base64
+from meitu.settings import DEFAULT_REQUEST_HEADERS
 
 # useful for handling different item types with a single interface
-from itemadapter import is_item, ItemAdapter
+# from itemadapter import is_item, ItemAdapter
 
 
-# class ProxyMiddleware(object):
-#     def get_proxy(self):
-#         return requests.get('http://127.0.0.1:5010/get/').json()
-#
-#     def del_proxy(self, proxy):
-#         requests.get('http://127.0.0.1:5010/delete/?proxy={}'.format(proxy))
-#
-#     def process_request(self, request, spider):
-#         retry_count = 5
-#         proxy = self.get_proxy().get('proxy')
-#         while retry_count > 0:
-#             try:
-#                 return requests.get(url=request.url, proxies={'http': 'http://{}'.format(proxy)})
-#             except Exception:
-#                 retry_count -= 1
-#         self.del_proxy(proxy)
-#         return None
+# proxy_pool
+class ProxyMiddleware:
+    def process_request(self, request, spider):
+        ip = random.choice(ipPool)
+        print('\n', '当前IP', ip, '>'*8, count['count'], '\n')
+        request.meta['proxy'] = ip
+        if count['count'] > RETRY_TIMES:
+            print('\n', '/'*8, '更换IP', '/'*8, '\n')
+            count['count'] = 0
+            ipPool.clear()
+            for i in requests.get('http://localhost:5010/all/?type=http').json():
+                ipPool.append('http://' + i['proxy'])
+        count['count'] += 1
+        return None
 
 
 class MeituSpiderMiddleware:

@@ -1,2 +1,3 @@
 /false/
-/log/
+/log/*
+/proxy_pool/settings.py

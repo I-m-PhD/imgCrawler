@@ -8,10 +8,11 @@ from meitu.items import MeituItem
 class NvshenDlSpider(scrapy.Spider):
     name = 'nvshen_dl'
     allowed_domains = []
-    start_urls = ['https://www.meitu131.net/nvshen/']
+    start_urls = ['https://www.meitu131.com/nvshen/']
 
     def parse(self, response, **kwargs):
         dl = pd.read_csv('./rst/nvshen_dl.csv') if Path('./rst/nvshen_dl.csv').exists() else print('\n', '!'*18, ' CSV FILE NOT FOUND ', '!'*18, '\n')
+
         """
         For how many girls you want to collect
         change the duration as you wish (make sure y > x)
@@ -30,7 +31,7 @@ class NvshenDlSpider(scrapy.Spider):
         n = response.meta['n']
         for i in response.xpath('/html/body/div[3]/div[2]/ul/li/div[2]/a'):
             au = i.xpath('@href').extract_first()
-            at = re.sub(pattern='([^0-9\u4e00-\u9fff\u0041-\u005a\u0061-\u007a])', repl='', string=i.xpath('text()').extract_first())
+            at = re.sub('([^0-9\u4e00-\u9fff\u0041-\u005a\u0061-\u007a])', '', i.xpath('text()').extract_first())
             yield response.follow(url=au, callback=self.parse_a, meta={'n': n, 'at': at})
 
     def parse_a(self, response):

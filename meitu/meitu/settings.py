@@ -13,7 +13,7 @@ SPIDER_MODULES = ['meitu.spiders']
 NEWSPIDER_MODULE = 'meitu.spiders'
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
-USER_AGENT = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36 Edg/109.0.1518.70'
+USER_AGENT = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.3 Safari/605.1.15'
 
 # Obey robots.txt rules
 ROBOTSTXT_OBEY = False
@@ -24,24 +24,24 @@ CONCURRENT_REQUESTS = 1
 # Configure a delay for requests for the same website (default: 0)
 # See https://docs.scrapy.org/en/latest/topics/settings.html#download-delay
 # See also autothrottle settings and docs
-DOWNLOAD_DELAY = 1
+# DOWNLOAD_DELAY = 1
 # The download delay setting will honor only one of:
-CONCURRENT_REQUESTS_PER_DOMAIN = 2
-CONCURRENT_REQUESTS_PER_IP = 2
+# CONCURRENT_REQUESTS_PER_DOMAIN = 2
+# CONCURRENT_REQUESTS_PER_IP = 2
 
 # Disable cookies (enabled by default)
-# COOKIES_ENABLED = False
+COOKIES_ENABLED = False
 
 # Disable Telnet Console (enabled by default)
 # TELNETCONSOLE_ENABLED = False
 
 # Override the default request headers:
 DEFAULT_REQUEST_HEADERS = {
-    'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9',
+    'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
     'Accept-Language': 'en-GB,en-US;q=0.9,en;q=0.8,zh-CN;q=0.7,zh;q=0.6,ja;q=0.5,ko;q=0.4',
-    'Cookie': 'yrlnxlastdiggid=1n33; yrlnxecookieclassrecord=,1,; Hm_lvt_56ab8436b0e3e66ae24c0783ab647e4d=1675248645,1675312132,1675315773,1675321027; Hm_lpvt_56ab8436b0e3e66ae24c0783ab647e4d=1675321027',
-    'Referer': 'https://www.meitu131.net/nvshen/',
-    'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36 Edg/109.0.1518.70',
+    'Cookie': 'Hm_lpvt_56ab8436b0e3e66ae24c0783ab647e4d=1675486364; Hm_lvt_56ab8436b0e3e66ae24c0783ab647e4d=1675486364; yrlnxecookieclassrecord=%2C1%2C',
+    'Referer': 'https://www.meitu131.com/',
+    'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.3 Safari/605.1.15',
 }
 
 # Enable or disable spider middlewares
@@ -52,10 +52,18 @@ DEFAULT_REQUEST_HEADERS = {
 
 # Enable or disable downloader middlewares
 # See https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
+# DOWNLOADER_MIDDLEWARES = {
+#     'meitu.middlewares.MeituDownloaderMiddleware': 543,
+# }
+
+# proxy_pool
 DOWNLOADER_MIDDLEWARES = {
-    # 'meitu.middlewares.MeituDownloaderMiddleware': 543,
-    # 'meitu.middlewares.ProxyMiddleware': 100,
+    'meitu.middlewares.ProxyMiddleware': 100,
 }
+count = {'count': 0}
+ipPool = []
+RETRY_ENABLED = True
+RETRY_TIMES = 10
 
 # Enable or disable extensions
 # See https://docs.scrapy.org/en/latest/topics/extensions.html
@@ -74,12 +82,12 @@ IMAGES_STORE = './'
 # See https://docs.scrapy.org/en/latest/topics/autothrottle.html
 AUTOTHROTTLE_ENABLED = True
 # The initial download delay
-AUTOTHROTTLE_START_DELAY = 4
+AUTOTHROTTLE_START_DELAY = 1
 # The maximum download delay to be set in case of high latencies
-AUTOTHROTTLE_MAX_DELAY = 90
+AUTOTHROTTLE_MAX_DELAY = 180
 # The average number of requests Scrapy should be sending in parallel to
 # each remote server
-AUTOTHROTTLE_TARGET_CONCURRENCY = 0.4
+AUTOTHROTTLE_TARGET_CONCURRENCY = 0.1
 # Enable showing throttling stats for every response received:
 AUTOTHROTTLE_DEBUG = False
 
