@@ -1,3 +1,4 @@
 /false/
 /log/*
 /proxy_pool/settings.py
+.DS_Store

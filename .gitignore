@@ -3,3 +3,4 @@
 /.idea/
 /.venv/
 user_id_list.csv
+.DS_Store
