@@ -1,0 +1,3 @@
+[submodule "meitu/proxy_pool"]
+	path = meitu/proxy_pool
+	url = git@github.com:jhao104/proxy_pool.git
